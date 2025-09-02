@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-
+import { ModeToggle } from "./ThemeTrigger";
 const Navbar = () => {
   return (
     <header className="fixed top-0 w-full bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 backdrop-blur-sm border-b border-purple-500/20 shadow-lg z-50">
@@ -59,6 +59,7 @@ const Navbar = () => {
               Markets Open
             </span>
           </div>
+          <ModeToggle />
 
           {/* Get Started Button */}
           <Link href="/sign-up">
