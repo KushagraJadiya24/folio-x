@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "./ui/button";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { isSignedIn } = useUser();
@@ -21,46 +22,6 @@ const Navbar = () => {
   if (!mounted) {
     return null; // or return a skeleton/placeholder
   }
-
-  const isDarkMode = theme === "dark";
-
-  // Sun Icon Component
-  const SunIcon = () => (
-    <svg
-      className="w-5 h-5"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-      />
-    </svg>
-  );
-
-  // Moon Icon Component
-  const MoonIcon = () => (
-    <svg
-      className="w-5 h-5"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-      />
-    </svg>
-  );
-
-  const toggleTheme = () => {
-    setTheme(isDarkMode ? "light" : "dark");
-  };
 
   return (
     <header className="fixed top-0 w-full backdrop-blur-sm border-b shadow-lg z-50 transition-all duration-300 bg-gradient-to-r from-white via-purple-50 to-white border-purple-200 dark:from-slate-900 dark:via-purple-900 dark:to-slate-900 dark:border-purple-500/20">
@@ -88,44 +49,38 @@ const Navbar = () => {
         </Link>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden md:flex items-center space-x-8 ml-42">
           <Link
             href="/portfolio"
-            className="font-medium transition-colors duration-200 text-gray-300 hover:text-purple-300 dark:text-gray-300 dark:hover:text-purple-300 light:text-gray-600 light:hover:text-purple-600"
+            className="font-medium transition-colors duration-200 text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-300"
           >
             Portfolio
           </Link>
           <Link
             href="/markets"
-            className="font-medium transition-colors duration-200 text-gray-300 hover:text-purple-300 dark:text-gray-300 dark:hover:text-purple-300 light:text-gray-600 light:hover:text-purple-600"
+            className="font-medium transition-colors duration-200 text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-300"
           >
             Markets
           </Link>
           <Link
-            href="/learn"
-            className="font-medium transition-colors duration-200 text-gray-300 hover:text-purple-300 dark:text-gray-300 dark:hover:text-purple-300 light:text-gray-600 light:hover:text-purple-600"
+            href="/news"
+            className="font-medium transition-colors duration-200 text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-300"
           >
-            Learn
+            News
           </Link>
         </nav>
 
         {/* CTA Section */}
         <div className="flex items-center gap-4">
           {/* Market Status Indicator */}
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border bg-green-500/20 border-green-500/30 dark:bg-green-500/20 dark:border-green-500/30 light:bg-green-100 light:border-green-300/50">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border bg-green-100 border-green-300/50 dark:bg-green-500/20 dark:border-green-500/30">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-green-300 dark:text-green-300 light:text-green-700">
+            <span className="text-sm font-medium text-green-700 dark:text-green-300">
               Markets Open
             </span>
           </div>
           {/* Theme Toggle */}
-          <button
-            onClick={toggleTheme}
-            className="p-2.5 rounded-lg transition-all duration-300 border bg-purple-800/30 hover:bg-purple-700/40 border-purple-600/30 text-yellow-300 dark:bg-purple-800/30 dark:hover:bg-purple-700/40 dark:border-purple-600/30 dark:text-yellow-300 light:bg-purple-50 light:hover:bg-purple-100 light:border-purple-200 light:text-slate-600"
-            aria-label="Toggle theme"
-          >
-            {isDarkMode ? <SunIcon /> : <MoonIcon />}
-          </button>
+          <ThemeToggle />
           {/* Get Started Button */}
           {isSignedIn ? (
             <>
@@ -156,7 +111,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden p-2 rounded-lg transition-colors text-white hover:bg-purple-800/30 dark:text-white dark:hover:bg-purple-800/30 light:text-slate-600 light:hover:bg-purple-100">
+        <button className="md:hidden p-2 rounded-lg transition-colors text-slate-600 hover:bg-purple-100 dark:text-white dark:hover:bg-purple-800/30">
           <svg
             className="w-6 h-6"
             fill="none"
