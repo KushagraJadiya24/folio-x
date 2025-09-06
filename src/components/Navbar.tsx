@@ -3,7 +3,6 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "./ui/button";
@@ -11,7 +10,6 @@ import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { isSignedIn } = useUser();
-  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   // Avoid hydration mismatch
