@@ -13,3 +13,44 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id         String    @id
+  email      String    @unique
+  name       String?
+  portfolios Portfolio[]
+  createdAt  DateTime  @default(now())
+}
+
+model Portfolio {
+  id        String   @id @default(cuid())
+  name      String
+  owner     User     @relation(fields: [ownerId], references: [id])
+  ownerId   String
+  trades    Trade[]
+  createdAt DateTime @default(now())
+}
+
+model Trade {
+  id          String   @id @default(cuid())
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
+  portfolioId String
+  stock       Stock    @relation(fields: [stockId], references: [id])
+  stockId     String
+  type        TradeType
+  quantity    Int
+  price       Float
+  createdAt   DateTime @default(now())
+}
+
+model Stock {
+  id       String  @id @default(cuid())
+  symbol   String  @unique
+  name     String
+  trades   Trade[]
+}
+
+enum TradeType {
+  BUY
+  SELL
+}
