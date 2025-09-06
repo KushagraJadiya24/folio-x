@@ -24,11 +24,11 @@ const Navbar = () => {
   }
 
   return (
-    <header className="fixed top-0 w-full backdrop-blur-sm border-b shadow-lg z-50 transition-all duration-300 bg-gradient-to-r from-white via-purple-50 to-white border-purple-200 dark:from-slate-900 dark:via-purple-900 dark:to-slate-900 dark:border-purple-500/20">
+    <header className="fixed top-0 w-full backdrop-blur-sm border-b shadow-lg z-50 transition-all duration-300 bg-background/80 border-border">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo Section */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="p-2 rounded-lg backdrop-blur-sm border transition-all duration-300 group-hover:scale-105 bg-purple-100/50 border-purple-300/50 group-hover:border-purple-400/70 dark:bg-white/10 dark:border-purple-400/30 dark:group-hover:border-purple-400/50">
+          <div className="p-2 rounded-lg backdrop-blur-sm border transition-all duration-300 group-hover:scale-105 bg-muted/50 border-border group-hover:border-primary/70">
             <Image
               src="/logo.png"
               alt="FolioX Logo"
@@ -39,32 +39,32 @@ const Navbar = () => {
             />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-xl font-bold tracking-tight transition-colors text-slate-800 dark:text-white">
+            <h1 className="text-xl font-bold tracking-tight transition-colors text-foreground">
               FolioX
             </h1>
-            <span className="text-xs font-medium transition-colors text-purple-600 dark:text-purple-300">
+            <span className="text-xs font-medium transition-colors text-primary">
               Paper Trading
             </span>
           </div>
         </Link>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-8 ml-42">
+        <nav className="hidden md:flex items-center space-x-8 ml-44">
           <Link
             href="/portfolio"
-            className="font-medium transition-colors duration-200 text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-300"
+            className="font-medium transition-colors duration-200 text-muted-foreground hover:text-primary"
           >
             Portfolio
           </Link>
           <Link
             href="/markets"
-            className="font-medium transition-colors duration-200 text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-300"
+            className="font-medium transition-colors duration-200 text-muted-foreground hover:text-primary"
           >
             Markets
           </Link>
           <Link
             href="/news"
-            className="font-medium transition-colors duration-200 text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-300"
+            className="font-medium transition-colors duration-200 text-muted-foreground hover:text-primary"
           >
             News
           </Link>
@@ -73,19 +73,21 @@ const Navbar = () => {
         {/* CTA Section */}
         <div className="flex items-center gap-4">
           {/* Market Status Indicator */}
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border bg-green-100 border-green-300/50 dark:bg-green-500/20 dark:border-green-500/30">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-green-700 dark:text-green-300">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full border bg-green-50 border-green-200 dark:bg-green-500/10 dark:border-green-500/20">
+            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+            <span className="text-sm font-medium text-green-700 dark:text-green-400">
               Markets Open
             </span>
           </div>
+
           {/* Theme Toggle */}
           <ThemeToggle />
-          {/* Get Started Button */}
+
+          {/* Auth Buttons */}
           {isSignedIn ? (
             <>
               <Link href="/signup">
-                <button className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold rounded-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300 transform hover:scale-105 border border-purple-500/30">
+                <button className="px-6 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg shadow-lg hover:shadow-primary/25 transition-all duration-300 transform hover:scale-105 border border-primary/30">
                   Get Started
                 </button>
               </Link>
@@ -96,13 +98,13 @@ const Navbar = () => {
               <SignInButton>
                 <Button
                   variant="outline"
-                  className="border-gray-700 text-gray-300 hover:bg-gray-800 rounded-lg"
+                  className="border-border text-muted-foreground hover:bg-muted hover:text-foreground rounded-lg transition-colors"
                 >
                   Sign In
                 </Button>
               </SignInButton>
               <SignUpButton>
-                <Button className="bg-primary text-white hover:bg-primary/90 rounded-lg shadow-md">
+                <Button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg shadow-md transition-colors">
                   Sign Up
                 </Button>
               </SignUpButton>
@@ -111,7 +113,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden p-2 rounded-lg transition-colors text-slate-600 hover:bg-purple-100 dark:text-white dark:hover:bg-purple-800/30">
+        <button className="md:hidden p-2 rounded-lg transition-colors text-muted-foreground hover:bg-muted hover:text-foreground">
           <svg
             className="w-6 h-6"
             fill="none"

@@ -1,13 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: "class", // so your `.dark { ... }` tokens work
+  darkMode: ["class"],
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{js,ts,jsx,tsx,mdx}", // keep if you have /src, remove if not
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       borderRadius: {
         lg: "var(--radius)",
@@ -15,24 +22,53 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
-        border: "oklch(var(--border) / <alpha-value>)",
-        input: "oklch(var(--input) / <alpha-value>)",
-        ring: "oklch(var(--ring) / <alpha-value>)",
-        background: "oklch(var(--background) / <alpha-value>)",
-        foreground: "oklch(var(--foreground) / <alpha-value>)",
-        primary: "oklch(var(--primary) / <alpha-value>)",
-        "primary-foreground":
-          "oklch(var(--primary-foreground) / <alpha-value>)",
-        secondary: "oklch(var(--secondary) / <alpha-value>)",
-        "secondary-foreground":
-          "oklch(var(--secondary-foreground) / <alpha-value>)",
-        muted: "oklch(var(--muted) / <alpha-value>)",
-        "muted-foreground": "oklch(var(--muted-foreground) / <alpha-value>)",
-        accent: "oklch(var(--accent) / <alpha-value>)",
-        "accent-foreground": "oklch(var(--accent-foreground) / <alpha-value>)",
-        destructive: "oklch(var(--destructive) / <alpha-value>)",
-        card: "oklch(var(--card) / <alpha-value>)",
-        "card-foreground": "oklch(var(--card-foreground) / <alpha-value>)",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
