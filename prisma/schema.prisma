@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -14,43 +7,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TradeType {
+  BUY
+  SELL
+}
+
 model User {
-  id         String    @id
-  email      String    @unique
-  name       String?
+  id         String     @id @default(cuid())
+  clerkId    String     @unique
+  email      String     @unique
+  firstName  String?
+  lastName   String?
   portfolios Portfolio[]
-  createdAt  DateTime  @default(now())
+  createdAt  DateTime   @default(now())
 }
 
 model Portfolio {
-  id        String   @id @default(cuid())
-  name      String
-  owner     User     @relation(fields: [ownerId], references: [id])
+  id        String  @id @default(cuid())
   ownerId   String
+  owner     User    @relation(fields: [ownerId], references: [id])
+  balance   Float   @default(100000) // starting paper money
   trades    Trade[]
   createdAt DateTime @default(now())
 }
 
-model Trade {
-  id          String   @id @default(cuid())
-  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
-  portfolioId String
-  stock       Stock    @relation(fields: [stockId], references: [id])
-  stockId     String
-  type        TradeType
-  quantity    Int
-  price       Float
-  createdAt   DateTime @default(now())
-}
-
 model Stock {
-  id       String  @id @default(cuid())
-  symbol   String  @unique
-  name     String
-  trades   Trade[]
+  id           String  @id @default(cuid())
+  symbol       String  @unique
+  name         String?
+  lastPrice    Float?
+  trades       Trade[]
+  updatedAt    DateTime @updatedAt
 }
 
-enum TradeType {
-  BUY
-  SELL
+model Trade {
+  id          String    @id @default(cuid())
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id])
+  stockId     String
+  stock       Stock     @relation(fields: [stockId], references: [id])
+  type        TradeType
+  price       Float
+  quantity    Int
+  executedAt  DateTime  @default(now())
 }
